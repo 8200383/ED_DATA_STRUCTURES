@@ -90,7 +90,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
      */
     @Override
     public boolean isEmpty() {
-        return front == null && rear == null;
+        return currentSize == 0;
     }
 
     /**

@@ -8,7 +8,7 @@ interface QueueADT<T> {
      * @param element the element to be added to
      *                the rear of this queue
      */
-    void enqueue(T element);
+    void enqueue(T element) throws Exception;
 
     /**
      * Removes and returns the element at the front of

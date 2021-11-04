@@ -23,9 +23,14 @@ public class CircularArrayQueue<T> implements QueueADT<T> {
      */
     private int front;
 
+    /**
+     * Represent size of the array
+     */
+    private int size;
 
     public CircularArrayQueue() {
         front = rear = 0;
+        size = 0;
         queue = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
@@ -36,16 +41,14 @@ public class CircularArrayQueue<T> implements QueueADT<T> {
      *                the rear of this queue
      */
     @Override
-    public void enqueue(T element) {
-
-        // It matters checks if the array is full
-        // TODO Throws an exception for the time being, expand the array latter
-        if (front == (rear + 1) % queue.length) {
-            throw new QueueFullException();
+    public void enqueue(T element) throws Exception {
+        if (size == queue.length) {
+            throw new Exception("Reached max capacity");
         }
 
         queue[rear] = element;
         rear = (rear + 1) % queue.length;
+        size++;
     }
 
     /**
@@ -65,6 +68,7 @@ public class CircularArrayQueue<T> implements QueueADT<T> {
         T removed = queue[front];
         queue[front] = null;
         front = (front + 1) % queue.length;
+        size--;
 
         return removed;
     }
@@ -91,7 +95,7 @@ public class CircularArrayQueue<T> implements QueueADT<T> {
      */
     @Override
     public boolean isEmpty() {
-        return rear == front;
+        return size == 0;
     }
 
     /**
@@ -102,7 +106,7 @@ public class CircularArrayQueue<T> implements QueueADT<T> {
      */
     @Override
     public int size() {
-        return rear - front;
+        return size;
     }
 
     @Override
