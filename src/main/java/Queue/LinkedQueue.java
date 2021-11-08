@@ -1,3 +1,5 @@
+package Queue;
+
 import java.util.EmptyStackException;
 
 public class LinkedQueue<T> implements QueueADT<T> {
@@ -111,7 +113,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
      */
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("LinkedQueue{currentSize=")
+        builder.append("Queue.LinkedQueue{currentSize=")
                 .append(currentSize)
                 .append(", nodes=[");
 

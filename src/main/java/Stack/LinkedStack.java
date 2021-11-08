@@ -1,3 +1,5 @@
+package Stack;
+
 import java.util.EmptyStackException;
 
 public class LinkedStack<T> implements StackADT<T> {
@@ -95,7 +97,7 @@ public class LinkedStack<T> implements StackADT<T> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("LinkedStack{currentSize=")
+        builder.append("Stack.LinkedStack{currentSize=")
                .append(currentSize)
                .append(", nodes=[");
 

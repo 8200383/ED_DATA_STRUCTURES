@@ -1,3 +1,5 @@
+package Stack;
+
 import java.util.EmptyStackException;
 
 public interface StackADT<T> {

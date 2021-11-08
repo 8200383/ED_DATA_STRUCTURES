@@ -1,3 +1,5 @@
+package Queue;
+
 import java.util.EmptyStackException;
 
 interface QueueADT<T> {

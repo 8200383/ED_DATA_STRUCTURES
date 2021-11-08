@@ -1,3 +1,5 @@
+package Stack;
+
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
@@ -119,7 +121,7 @@ public class ArrayStack<T> implements StackADT<T> {
      */
     @Override
     public String toString() {
-        return "ArrayStack{" +
+        return "Stack.ArrayStack{" +
                 "DEFAULT_CAPACITY=" + DEFAULT_CAPACITY +
                 ", top=" + top +
                 ", stack=" + Arrays.toString(stack) +

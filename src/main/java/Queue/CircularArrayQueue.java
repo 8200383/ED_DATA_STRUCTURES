@@ -1,3 +1,5 @@
+package Queue;
+
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
@@ -111,7 +113,7 @@ public class CircularArrayQueue<T> implements QueueADT<T> {
 
     @Override
     public String toString() {
-        return "CircularArrayQueue{" +
+        return "Queue.CircularArrayQueue{" +
                 "DEFAULT_CAPACITY=" + DEFAULT_CAPACITY +
                 ", queue=" + Arrays.toString(queue) +
                 ", rear=" + rear +
