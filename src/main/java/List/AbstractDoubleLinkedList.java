@@ -63,10 +63,9 @@ public abstract class AbstractDoubleLinkedList<T> implements ListADT<T> {
                 throw new ConcurrentModificationException();
             }
 
-            System.out.println(previous.element);
             AbstractDoubleLinkedList.this.remove(previous.element);
-            expectedModCount++;
             okToRemove = false;
+            expectedModCount++;
         }
     }
 
