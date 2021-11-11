@@ -1,5 +1,6 @@
 package List;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -8,6 +9,7 @@ public abstract class AbstractDoubleLinkedList<T> implements ListADT<T> {
     protected Node<T> front;
     protected Node<T> rear;
     protected int currentSize;
+    protected int modCount;
 
     protected static class Node<T> {
         protected T element;
@@ -21,11 +23,21 @@ public abstract class AbstractDoubleLinkedList<T> implements ListADT<T> {
     }
 
     private class ListIterator implements Iterator<T> {
-        Node<T> tmp = front;
+        private Node<T> current;
+        private Node<T> previous;
+        private boolean okToRemove;
+        private int expectedModCount;
+
+        public ListIterator(int modCount) {
+            previous = null;
+            current = front;
+            okToRemove = false;
+            expectedModCount = modCount;
+        }
 
         @Override
         public boolean hasNext() {
-            return tmp != null;
+            return current != null;
         }
 
         @Override
@@ -34,20 +46,34 @@ public abstract class AbstractDoubleLinkedList<T> implements ListADT<T> {
                 throw new NoSuchElementException();
             }
 
-            T element = tmp.element;
-            tmp = tmp.next;
+            okToRemove = true;
+            T element = current.element;
+            previous = current;
+            current = current.next;
             return element;
         }
 
         @Override
         public void remove() {
-            throw new UnsupportedOperationException();
+            if (!okToRemove) {
+                throw new IllegalStateException();
+            }
+
+            if (expectedModCount != AbstractDoubleLinkedList.this.modCount) {
+                throw new ConcurrentModificationException();
+            }
+
+            System.out.println(previous.element);
+            AbstractDoubleLinkedList.this.remove(previous.element);
+            expectedModCount++;
+            okToRemove = false;
         }
     }
 
     public AbstractDoubleLinkedList() {
         front = rear = null;
         currentSize = 0;
+        modCount = 0;
     }
 
 
@@ -58,9 +84,10 @@ public abstract class AbstractDoubleLinkedList<T> implements ListADT<T> {
         }
 
         T removed = front.element;
-        front = front.next;
         front.previous = null;
+        front = front.next;
         currentSize--;
+        modCount++;
         return removed;
     }
 
@@ -74,6 +101,7 @@ public abstract class AbstractDoubleLinkedList<T> implements ListADT<T> {
         rear = rear.previous;
         rear.next = null;
         currentSize--;
+        modCount++;
         return removed;
     }
 
@@ -97,6 +125,7 @@ public abstract class AbstractDoubleLinkedList<T> implements ListADT<T> {
                 tmp.previous.next = tmp.next;
                 tmp.next.previous = tmp.previous;
                 currentSize--;
+                modCount++;
                 return tmp.element;
             }
 
@@ -130,13 +159,13 @@ public abstract class AbstractDoubleLinkedList<T> implements ListADT<T> {
             throw new EmptyListException();
         }
 
-        Node<T> tmp = front;
-        while (tmp.next != null) {
-            if (tmp.element == target) {
+        Node<T> current = front;
+        while (current != null) {
+            if (current.element == target) {
                 return true;
             }
 
-            tmp = tmp.next;
+            current = current.next;
         }
 
         return false;
@@ -154,7 +183,7 @@ public abstract class AbstractDoubleLinkedList<T> implements ListADT<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new ListIterator();
+        return new ListIterator(modCount);
     }
 
     @Override

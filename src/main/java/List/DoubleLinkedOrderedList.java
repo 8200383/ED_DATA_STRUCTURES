@@ -13,6 +13,7 @@ public class DoubleLinkedOrderedList<T extends Comparable<T>> extends AbstractDo
         if (isEmpty()) {
             super.front = super.rear = node;
             super.currentSize++;
+            super.modCount++;
             return;
         }
 
@@ -21,6 +22,7 @@ public class DoubleLinkedOrderedList<T extends Comparable<T>> extends AbstractDo
             super.front.previous = node;
             super.front = node;
             super.currentSize++;
+            super.modCount++;
             return;
         }
 
@@ -33,6 +35,6 @@ public class DoubleLinkedOrderedList<T extends Comparable<T>> extends AbstractDo
         node.next = tmp.next;
         tmp.next = node;
         super.currentSize++;
-
+        super.modCount++;
     }
 }

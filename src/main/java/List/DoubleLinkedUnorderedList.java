@@ -22,6 +22,7 @@ public class DoubleLinkedUnorderedList<T extends Comparable<T>> extends Abstract
         node.next = super.front;
         super.front = node;
         super.currentSize++;
+        super.modCount++;
     }
 
     @Override
@@ -37,7 +38,8 @@ public class DoubleLinkedUnorderedList<T extends Comparable<T>> extends Abstract
         node.previous = super.rear;
         super.rear.next = node;
         super.rear = node;
-        currentSize++;
+        super.currentSize++;
+        super.modCount++;
     }
 
     @Override
@@ -49,7 +51,8 @@ public class DoubleLinkedUnorderedList<T extends Comparable<T>> extends Abstract
             super.rear.next = node;
             node.previous = super.rear;
             super.rear = node;
-            currentSize++;
+            super.currentSize++;
+            super.modCount++;
             return;
         }
 
@@ -62,7 +65,8 @@ public class DoubleLinkedUnorderedList<T extends Comparable<T>> extends Abstract
                 node.next = tmp.next;
                 node.previous = tmp;
                 tmp.next = node;
-                currentSize++;
+                super.currentSize++;
+                super.modCount++;
                 return;
             }
 
