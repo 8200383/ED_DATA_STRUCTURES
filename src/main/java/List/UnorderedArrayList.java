@@ -9,6 +9,10 @@ public class UnorderedArrayList<T> extends AbstractArrayList<T> implements Unord
 
     @Override
     public void addToFront(T element) {
+        if (super.rear == super.list.length) {
+            super.expandArray();
+        }
+
         if (isEmpty()) {
             super.list[rear++] = element;
             return;
@@ -21,11 +25,23 @@ public class UnorderedArrayList<T> extends AbstractArrayList<T> implements Unord
 
     @Override
     public void addToLast(T element) {
+        if (super.rear == super.list.length) {
+            super.expandArray();
+        }
+
         super.list[super.rear++] = element;
     }
 
     @Override
     public void addAfter(T element, T target) throws NoSuchElementException {
+        if (super.rear == super.list.length) {
+            super.expandArray();
+        }
+
+        if (!(target instanceof Comparable)) {
+            throw new ClassCastException();
+        }
+
         Comparable<T> comparable = (Comparable<T>) target;
 
         int i = 0;

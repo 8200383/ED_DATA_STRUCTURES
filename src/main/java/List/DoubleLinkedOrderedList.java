@@ -1,6 +1,9 @@
 package List;
 
-public class DoubleLinkedOrderedList<T extends Comparable<T>> extends AbstractDoubleLinkedList<T> implements OrderedListADT<T> {
+import List.AbstractDoubleLinkedList;
+import List.OrderedListADT;
+
+public class DoubleLinkedOrderedList<T> extends AbstractDoubleLinkedList<T> implements OrderedListADT<T> {
 
     public DoubleLinkedOrderedList() {
         super();
@@ -8,6 +11,12 @@ public class DoubleLinkedOrderedList<T extends Comparable<T>> extends AbstractDo
 
     @Override
     public void add(T element) {
+        if (!(element instanceof Comparable)) {
+            throw new ClassCastException();
+        }
+
+        Comparable<T> comparableElement = (Comparable<T>) element;
+
         Node<T> node = new Node<>(element);
 
         if (isEmpty()) {
@@ -17,7 +26,7 @@ public class DoubleLinkedOrderedList<T extends Comparable<T>> extends AbstractDo
             return;
         }
 
-        if (element.compareTo(super.front.element) <= 0) {
+        if (comparableElement.compareTo(super.front.element) <= 0) {
             node.next = super.front;
             super.front.previous = node;
             super.front = node;
@@ -27,7 +36,7 @@ public class DoubleLinkedOrderedList<T extends Comparable<T>> extends AbstractDo
         }
 
         Node<T> tmp = super.front;
-        while (tmp.next != null && element.compareTo(tmp.element) > 0) {
+        while (tmp.next != null && comparableElement.compareTo(tmp.element) > 0) {
             tmp = tmp.next;
         }
 

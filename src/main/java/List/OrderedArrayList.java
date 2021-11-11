@@ -8,6 +8,14 @@ public class OrderedArrayList<T> extends AbstractArrayList<T> implements Ordered
 
     @Override
     public void add(T element) {
+        if (super.rear == super.list.length) {
+            super.expandArray();
+        }
+
+        if (!(element instanceof Comparable)) {
+            throw new ClassCastException();
+        }
+
         Comparable<T> comparable = (Comparable<T>) element;
 
         int i = 0;
