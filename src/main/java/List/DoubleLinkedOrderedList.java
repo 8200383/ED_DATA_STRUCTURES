@@ -1,8 +1,5 @@
 package List;
 
-import List.AbstractDoubleLinkedList;
-import List.OrderedListADT;
-
 public class DoubleLinkedOrderedList<T> extends AbstractDoubleLinkedList<T> implements OrderedListADT<T> {
 
     public DoubleLinkedOrderedList() {
@@ -30,6 +27,15 @@ public class DoubleLinkedOrderedList<T> extends AbstractDoubleLinkedList<T> impl
             node.next = super.front;
             super.front.previous = node;
             super.front = node;
+            super.currentSize++;
+            super.modCount++;
+            return;
+        }
+
+        if (comparableElement.compareTo(super.rear.element) >= 0) {
+            node.previous = super.rear;
+            super.rear.next = node;
+            super.rear = node;
             super.currentSize++;
             super.modCount++;
             return;
