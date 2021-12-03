@@ -43,9 +43,9 @@ public class CircularArrayQueue<T> implements QueueADT<T> {
      *                the rear of this queue
      */
     @Override
-    public void enqueue(T element) throws Exception {
+    public void enqueue(T element) {
         if (size == queue.length) {
-            throw new Exception("Reached max capacity");
+            return;
         }
 
         queue[rear] = element;

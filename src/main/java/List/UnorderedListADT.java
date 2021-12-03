@@ -15,7 +15,7 @@ public interface UnorderedListADT<T> extends ListADT<T> {
      *
      * @param element The element to be added to the list
      */
-    public void addToLast(T element);
+    public void addToRear(T element);
 
     /**
      * Adds the specified element to this list after the target location

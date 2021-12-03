@@ -29,7 +29,7 @@ public class DoubleLinkedUnorderedList<T extends Comparable<T>> extends Abstract
     }
 
     @Override
-    public void addToLast(T element) {
+    public void addToRear(T element) {
         Node<T> node = new Node<>(element);
 
         if (isEmpty()) {

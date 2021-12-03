@@ -24,7 +24,7 @@ public class UnorderedArrayList<T> extends AbstractArrayList<T> implements Unord
     }
 
     @Override
-    public void addToLast(T element) {
+    public void addToRear(T element) {
         if (super.rear == super.list.length) {
             super.expandArray();
         }
@@ -47,7 +47,7 @@ public class UnorderedArrayList<T> extends AbstractArrayList<T> implements Unord
         int i = 0;
         while (i < size()) {
             if (comparable.compareTo(super.list[i]) == 0) {
-                System.arraycopy(super.list, i, super.list, i+1, rear);
+                System.arraycopy(super.list, i, super.list, i + 1, super.rear);
                 super.list[i] = element;
                 super.rear++;
                 return;

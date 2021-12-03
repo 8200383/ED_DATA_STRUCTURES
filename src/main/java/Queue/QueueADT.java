@@ -2,7 +2,7 @@ package Queue;
 
 import java.util.EmptyStackException;
 
-interface QueueADT<T> {
+public interface QueueADT<T> {
 
     /**
      * Adds one element to the rear of this queue.
@@ -10,7 +10,7 @@ interface QueueADT<T> {
      * @param element the element to be added to
      *                the rear of this queue
      */
-    void enqueue(T element) throws Exception;
+    void enqueue(T element);
 
     /**
      * Removes and returns the element at the front of
