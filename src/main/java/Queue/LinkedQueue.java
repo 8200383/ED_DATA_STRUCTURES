@@ -39,7 +39,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
             return;
         }
 
-        node.next = rear;
+        rear.next = node;
         rear = node;
         currentSize++;
     }
@@ -56,15 +56,15 @@ public class LinkedQueue<T> implements QueueADT<T> {
             throw new EmptyStackException();
         }
 
-        Node<T> tmp = rear;
-
-        while(tmp.next.next != null) {
-            tmp = tmp.next;
+        if (currentSize == 1) {
+            T removed = front.element;
+            front = rear = null;
+            currentSize--;
+            return removed;
         }
 
         T removed = front.element;
-        tmp.next = null;
-        front = tmp;
+        front = front.next;
         currentSize--;
 
         return removed;

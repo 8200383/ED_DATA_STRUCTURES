@@ -8,8 +8,8 @@ import java.util.Iterator;
 
 public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 
-    private int count;
-    private BinaryTreeNode<T> root;
+    protected int count;
+    protected BinaryTreeNode<T> root;
 
     public LinkedBinaryTree() {
         this.count = 0;
@@ -141,10 +141,17 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         queue.enqueue(node);
 
         while (!queue.isEmpty()) {
+
             BinaryTreeNode<T> tmp = queue.dequeue();
             tempList.addToRear(tmp.element);
-            levelorder(node.left, tempList);
-            levelorder(node.right, tempList);
+
+            if (tmp.left != null) {
+                queue.enqueue(node.left);
+            }
+
+            if (tmp.right != null) {
+                queue.enqueue(node.right);
+            }
         }
     }
 
