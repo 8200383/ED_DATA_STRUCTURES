@@ -94,7 +94,19 @@ public class Graph<T> implements GraphADT<T> {
 
     @Override
     public void removeEdge(T vertex1, T vertex2) {
+        int pos1 = getIndex(vertex1);
+        int pos2 = getIndex(vertex2);
 
+        if (!indexIsValid(pos1) && !indexIsValid(pos2)) {
+            throw new IllegalArgumentException("Vertex not found!");
+        }
+
+        if (!adjMatrix[pos1][pos2] && !adjMatrix[pos2][pos2]) {
+            throw new IllegalArgumentException("Edge not found!");
+        }
+
+        adjMatrix[pos1][pos2] = false;
+        adjMatrix[pos2][pos1] = false;
     }
 
     @Override
