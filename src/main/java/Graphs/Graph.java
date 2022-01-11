@@ -4,6 +4,7 @@ import List.UnorderedArrayList;
 import List.UnorderedListADT;
 import Queue.LinkedQueue;
 import Queue.QueueADT;
+import Stack.LinkedStack;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -151,7 +152,41 @@ public class Graph<T> implements GraphADT<T> {
 
     @Override
     public Iterator<T> iteratorDFS(T startVertex) {
-        return null;
+        LinkedStack<Integer> traversalStack = new LinkedStack<>();
+        UnorderedListADT<T> resultList = new UnorderedArrayList<>();
+
+        int startIndex = getIndex(startVertex);
+        if (!indexIsValid(startIndex))
+            return resultList.iterator();
+
+        boolean[] visited = new boolean[numVertices];
+        for (int i = 0; i < numVertices; i++)
+            visited[i] = false;
+
+        traversalStack.push(startIndex);
+        resultList.addToRear(vertices[startIndex]);
+        visited[startIndex] = true;
+
+        while (!traversalStack.isEmpty()) {
+            int x = traversalStack.peek();
+            boolean found = false;
+
+            /* Find a vertex adjacent to x that has not been visited
+             and push it on the stack */
+            for (int i = 0; (i < numVertices) && !found; i++) {
+                if (adjMatrix[x][i] && !visited[i]) {
+                    traversalStack.push(i);
+                    resultList.addToRear(vertices[i]);
+                    visited[i] = true;
+                    found = true;
+                }
+            }
+
+            if (!found && !traversalStack.isEmpty())
+                traversalStack.pop();
+        }
+
+        return resultList.iterator();
     }
 
     @Override
