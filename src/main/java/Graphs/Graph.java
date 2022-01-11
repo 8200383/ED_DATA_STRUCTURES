@@ -1,5 +1,10 @@
 package Graphs;
 
+import List.UnorderedArrayList;
+import List.UnorderedListADT;
+import Queue.LinkedQueue;
+import Queue.QueueADT;
+
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -111,7 +116,37 @@ public class Graph<T> implements GraphADT<T> {
 
     @Override
     public Iterator<T> iteratorBFS(T startVertex) {
-        return null;
+        QueueADT<Integer> traversalQueue = new LinkedQueue<>();
+        UnorderedListADT<T> unorderedList = new UnorderedArrayList<>();
+
+        int startIndex = getIndex(startVertex);
+        if (!indexIsValid(startIndex)) {
+            return unorderedList.iterator();
+        }
+
+        boolean[] visited = new boolean[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            visited[i] = false;
+        }
+
+        traversalQueue.enqueue(startIndex);
+        visited[startIndex] = true;
+
+        while (!traversalQueue.isEmpty()) {
+            Integer x = traversalQueue.dequeue();
+            unorderedList.addToRear(vertices[x]);
+
+            /* Find all vertices adjacent to x that have
+             not been visited and queue them up */
+            for (int i = 0; i < numVertices; i++) {
+                if (adjMatrix[x][i] && !visited[i]) {
+                    traversalQueue.enqueue(i);
+                    visited[i] = true;
+                }
+            }
+        }
+
+        return unorderedList.iterator();
     }
 
     @Override
